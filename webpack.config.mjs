@@ -1,11 +1,11 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-module.exports = {
+export default {
   entry: './src/index.tsx',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve('dist'),
     publicPath: '/',
   },
   resolve: {
@@ -28,15 +28,20 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     static: {
-      directory: path.join(__dirname, 'dist'),
+      directory: path.resolve('dist'),
     },
     port: 4200,
     proxy: [
       {
         context: ['/sbspike'],
         target: 'https://expotest.bsz-bw.de',
-        secure: false, // if using self-signed SSL certificates
         changeOrigin: true,
+      },
+      {
+        context: ['/kc'],
+        target: 'https://authtest.bsz-bw.de',
+        changeOrigin: true,
+        pathRewrite: { '^/kc': '' },
       },
     ],
   },

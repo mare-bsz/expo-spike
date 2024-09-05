@@ -1,20 +1,16 @@
 {
   "name": "expo-spike",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.1.0",
+  "type": "module",
   "scripts": {
-    "start": "webpack serve --config webpack.config.js --mode development",
-    "build": "webpack --config webpack.config.js --mode production",
+    "start": "webpack serve --config webpack.config.mjs --mode development",
+    "build": "webpack --config webpack.config.mjs --mode production",
     "test": "jest",
-    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --config ./eslint.config.js",
-    "lint:fix": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --fix --config ./eslint.config.js",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --config ./eslint.config.mjs",
+    "lint:fix": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --fix --config ./eslint.config.mjs",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,scss,html,json,md}\"",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,css,scss,html,json,md}\""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "@eslint/js": "^9.9.1",
     "axios": "^1.7.7",

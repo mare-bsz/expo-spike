@@ -1,13 +1,11 @@
-// eslint.config.js
-'use strict';
+// eslint.config.mjs
+import js from '@eslint/js';
+import reactPlugin from 'eslint-plugin-react';
+import typescriptPlugin from '@typescript-eslint/eslint-plugin';
+import typescriptParser from '@typescript-eslint/parser';
+import prettierPlugin from 'eslint-plugin-prettier';
 
-const js = require('@eslint/js');
-const reactPlugin = require('eslint-plugin-react');
-const typescriptPlugin = require('@typescript-eslint/eslint-plugin');
-const typescriptParser = require('@typescript-eslint/parser');
-const prettierPlugin = require('eslint-plugin-prettier');
-
-module.exports = [
+export default [
   {
     ignores: ['node_modules/**', 'dist/**', 'build/**', '.git/**'],
   },
@@ -33,6 +31,11 @@ module.exports = [
       '@typescript-eslint': typescriptPlugin,
       prettier: prettierPlugin,
     },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
     rules: {
       ...js.configs.recommended.rules,
       ...reactPlugin.configs.recommended.rules,
@@ -40,11 +43,6 @@ module.exports = [
       'prettier/prettier': 'error',
       'react/react-in-jsx-scope': 'off',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
-    },
-    settings: {
-      react: {
-        version: 'detect',
-      },
     },
   },
 ];
