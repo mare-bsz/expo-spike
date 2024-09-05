@@ -16,11 +16,19 @@ const App: React.FC = () => {
   );
   const [authenticated, setAuthenticated] = useState(false);
 
+  // Handle Keycloak token
   useEffect(() => {
     keycloak.init({ onLoad: 'login-required' }).then(authenticated => {
       setKeycloakInstance(keycloak);
       setAuthenticated(authenticated);
     });
+
+    keycloak.onTokenExpired = () => {
+      keycloak.updateToken(30).catch(() => {
+        console.error('Failed to refresh token');
+        keycloak.logout();
+      });
+    };
   }, []);
 
   const fetchData = async () => {
