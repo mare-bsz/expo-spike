@@ -2,13 +2,17 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "ESNext",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
+    "lib": [
+      "dom",
+      "es6"
+    ],
     "types": [
       "jest",
       "node"

@@ -1,4 +1,3 @@
-// eslint.config.mjs
 import js from '@eslint/js';
 import reactPlugin from 'eslint-plugin-react';
 import typescriptPlugin from '@typescript-eslint/eslint-plugin';
@@ -19,6 +18,7 @@ export default [
         ecmaFeatures: {
           jsx: true,
         },
+        project: './tsconfig.json',
       },
       globals: {
         document: 'readonly',
@@ -43,6 +43,7 @@ export default [
       'prettier/prettier': 'error',
       'react/react-in-jsx-scope': 'off',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
+      '@typescript-eslint/no-use-before-define': 'off',
     },
   },
 ];

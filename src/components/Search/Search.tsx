@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import axios from 'axios';
-import { useAuth } from '../../contexts/AuthContext'; // Ensure correct path
+import { useAuth } from '../../contexts/AuthContext';
 
 const Search: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -24,7 +24,7 @@ const Search: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     fetchData(searchTerm);
   };
