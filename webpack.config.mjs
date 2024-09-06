@@ -18,6 +18,10 @@ export default {
         use: 'babel-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
     ],
   },
   plugins: [
@@ -36,12 +40,6 @@ export default {
         context: ['/sbspike'],
         target: 'https://expotest.bsz-bw.de',
         changeOrigin: true,
-      },
-      {
-        context: ['/kc'],
-        target: 'https://authtest.bsz-bw.de',
-        changeOrigin: true,
-        pathRewrite: { '^/kc': '' },
       },
     ],
   },

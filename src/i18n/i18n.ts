@@ -1,14 +1,13 @@
 // src/i18n.ts
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import appDe from './app.de.json';
+import headerDe from './header.de.json';
 
 const resources = {
   de: {
-    translation: {
-      welcome: 'Willkommen auf der geschützten Seite',
-      fetchData: 'Geschützte Daten abrufen',
-      loading: 'Wird geladen...',
-    },
+    app: appDe,
+    header: headerDe,
   },
 };
 
