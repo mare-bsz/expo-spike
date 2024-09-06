@@ -1,8 +1,10 @@
 import React, { FormEvent, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 const Search: React.FC = () => {
+  const { t } = useTranslation('search');
   const [searchTerm, setSearchTerm] = useState('');
   const { keycloakInstance } = useAuth();
 
@@ -32,7 +34,7 @@ const Search: React.FC = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="search">Search:</label>
+        <label htmlFor="search">{`${t('search')}:`}</label>
         <input
           type="text"
           id="search"
@@ -40,7 +42,7 @@ const Search: React.FC = () => {
           onChange={e => setSearchTerm(e.target.value)}
         />
       </div>
-      <button type="submit">Search</button>
+      <button type="submit">{t('search')}</button>
     </form>
   );
 };
