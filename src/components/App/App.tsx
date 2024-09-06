@@ -5,7 +5,7 @@ import {
   Route,
   Routes,
 } from 'react-router-dom';
-import AuthProvider, { useAuth } from '../../contexts/AuthContext';
+import AuthProvider, { useAuth } from '../../contexts/AuthContext'; // Ensure correct path
 import Home from '../../pages/Home/Home';
 import Logout from '../../pages/Logout/Logout';
 
