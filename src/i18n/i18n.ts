@@ -1,12 +1,12 @@
 // src/i18n.ts
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import appDe from './app.de.json';
+import homeDe from './home.de.json';
 import headerDe from './header.de.json';
 
 const resources = {
   de: {
-    app: appDe,
+    home: homeDe,
     header: headerDe,
   },
 };

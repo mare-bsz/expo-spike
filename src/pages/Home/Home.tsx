@@ -6,7 +6,7 @@ import axios from 'axios';
 import './Home.scss';
 
 const Home: React.FC = () => {
-  const { t } = useTranslation('app');
+  const { t } = useTranslation('home');
   const { keycloakInstance } = useAuth();
 
   const fetchData = async () => {
