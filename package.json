@@ -10,8 +10,8 @@
     "lint:fix": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --fix --config ./eslint.config.mjs",
     "lint:styles": "stylelint \"src/**/*.scss\"",
     "lint:styles:fix": "stylelint \"src/**/*.scss\" --fix",
-    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,scss,html,json,md}\"",
-    "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,css,scss,html,json,md}\""
+    "prettier": "prettier --check \"src/**/*.{js,jsx,ts,tsx,css,scss,html,json,md}\"",
+    "prettier:fix": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,scss,html,json,md}\""
   },
   "dependencies": {
     "@eslint/js": "^9.9.1",
