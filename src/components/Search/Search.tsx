@@ -36,7 +36,7 @@ const Search: React.FC = () => {
     <div className="search">
       <form className="search__form" onSubmit={handleSubmit}>
         <div className="search__form-container">
-          <label hidden htmlFor="search">{`${t('search')}`}</label>
+          <label htmlFor="search">{`${t('search')}`}</label>
           <input
             type="text"
             id="search"

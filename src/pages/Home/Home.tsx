@@ -5,12 +5,14 @@ import Search from '../../components/Search/Search';
 
 const Home: React.FC = () => {
   return (
-    <div>
+    <>
       <Header />
-      <div className="content">
-        <Search />
-      </div>
-    </div>
+      <main role="main">
+        <div className="content">
+          <Search />
+        </div>
+      </main>
+    </>
   );
 };
 

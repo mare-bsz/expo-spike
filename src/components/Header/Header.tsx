@@ -8,7 +8,7 @@ const Header: React.FC = () => {
   const { logout } = useAuth();
 
   return (
-    <header className="header">
+    <header role="banner" className="header">
       <h1>{t('title')}</h1>
       <button onClick={logout}>{t('logout')}</button>
     </header>
