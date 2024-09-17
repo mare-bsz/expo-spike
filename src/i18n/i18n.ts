@@ -2,13 +2,11 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import headerDe from './header.de.json';
-import homeDe from './home.de.json';
 import searchDe from './search.de.json';
 
 const resources = {
   de: {
     header: headerDe,
-    home: homeDe,
     search: searchDe,
   },
 };

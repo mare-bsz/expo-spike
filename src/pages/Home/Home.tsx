@@ -11,7 +11,6 @@ const Home: React.FC = () => {
     <div>
       <Header />
       <div className="content">
-        <h1>{t('welcome')}</h1>
         <Search />
       </div>
     </div>

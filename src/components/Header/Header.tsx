@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import './Header.scss';
 import { useAuth } from '../../contexts/AuthContext';
+import './Header.scss';
 
 const Header: React.FC = () => {
   const { t } = useTranslation('header'); // Use 'header' namespace
