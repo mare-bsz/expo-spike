@@ -1,0 +1,20 @@
+.search__form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    display: block;
+  }
+}
+
+.search__form-container {
+  label {
+    margin-right: 10px;
+  }
+
+  input {
+    height: 25px;
+    margin-right: 10px;
+  }
+}

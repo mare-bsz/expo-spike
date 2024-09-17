@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
+import './Search.scss';
 
 const Search: React.FC = () => {
   const { t } = useTranslation('search');
@@ -32,18 +33,20 @@ const Search: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="search">{`${t('search')}:`}</label>
-        <input
-          type="text"
-          id="search"
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-        />
-      </div>
-      <button type="submit">{t('search')}</button>
-    </form>
+    <div className="search">
+      <form className="search__form" onSubmit={handleSubmit}>
+        <div className="search__form-container">
+          <label hidden htmlFor="search">{`${t('search')}`}</label>
+          <input
+            type="text"
+            id="search"
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <button type="submit">{t('search')}</button>
+      </form>
+    </div>
   );
 };
 
