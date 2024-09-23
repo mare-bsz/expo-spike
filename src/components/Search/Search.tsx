@@ -2,9 +2,14 @@ import React, { FormEvent, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
+import { Record } from '../../types/types';
 import './Search.scss';
 
-const Search: React.FC = () => {
+type SearchProps = {
+  setRecords: React.Dispatch<React.SetStateAction<Record[]>>;
+};
+
+const Search: React.FC<SearchProps> = ({ setRecords }) => {
   const { t } = useTranslation('search');
   const [searchTerm, setSearchTerm] = useState('');
   const { keycloakInstance } = useAuth();
@@ -20,7 +25,7 @@ const Search: React.FC = () => {
             },
           }
         );
-        console.log(response.data);
+        setRecords(response.data.records);
       } catch (error) {
         console.error('Failed to fetch data', error);
       }
@@ -43,8 +48,8 @@ const Search: React.FC = () => {
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
+          <button type="submit">{t('search')}</button>
         </div>
-        <button type="submit">{t('search')}</button>
       </form>
     </div>
   );
