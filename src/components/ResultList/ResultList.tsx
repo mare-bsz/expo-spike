@@ -1,5 +1,6 @@
 import React from 'react';
 import { Record } from '../../types/types';
+import './ResultList.scss';
 
 type ResultListProps = {
   records: Record[];

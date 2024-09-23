@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, SetStateAction, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
@@ -6,7 +6,7 @@ import { Record } from '../../types/types';
 import './Search.scss';
 
 type SearchProps = {
-  setRecords: React.Dispatch<React.SetStateAction<Record[]>>;
+  setRecords: React.Dispatch<SetStateAction<Record[] | undefined>>;
 };
 
 const Search: React.FC<SearchProps> = ({ setRecords }) => {
@@ -32,9 +32,13 @@ const Search: React.FC<SearchProps> = ({ setRecords }) => {
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetchData(searchTerm);
+    try {
+      await fetchData(searchTerm);
+    } catch (error) {
+      console.error('Error occurred during fetch', error);
+    }
   };
 
   return (
