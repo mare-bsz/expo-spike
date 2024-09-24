@@ -15,7 +15,8 @@
     ],
     "types": [
       "jest",
-      "node"
+      "node",
+      "@testing-library/jest-dom"
     ],
     "typeRoots": [
       "node_modules/@types"

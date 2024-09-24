@@ -3,6 +3,7 @@ import reactPlugin from 'eslint-plugin-react';
 import typescriptPlugin from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 import prettierPlugin from 'eslint-plugin-prettier';
+import jestPlugin from 'eslint-plugin-jest';
 
 export default [
   {
@@ -24,12 +25,17 @@ export default [
         document: 'readonly',
         window: 'readonly',
         console: 'readonly',
+        jest: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        describe: 'readonly',
       },
     },
     plugins: {
       react: reactPlugin,
       '@typescript-eslint': typescriptPlugin,
       prettier: prettierPlugin,
+      jest: jestPlugin,
     },
     settings: {
       react: {
@@ -39,7 +45,8 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...reactPlugin.configs.recommended.rules,
-      ...typescriptPlugin.configs['recommended'].rules,
+      ...typescriptPlugin.configs.recommended.rules,
+      ...jestPlugin.configs.recommended.rules,
       'prettier/prettier': 'error',
       'react/react-in-jsx-scope': 'off',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
