@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { Record } from '../../types/types';
 import './Search.scss';
+import Button from '../../lib/Button/Button';
 
 type SearchProps = {
   setRecords: React.Dispatch<React.SetStateAction<Record[] | undefined>>;
@@ -56,7 +57,7 @@ const Search: React.FC<SearchProps> = ({ setRecords, setIsLoading }) => {
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
-          <button type="submit">{t('search')}</button>
+          <Button type="submit">{t('search')}</Button>
         </div>
       </form>
     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/AuthContext';
+import Button from '../../lib/Button/Button';
 import './Header.scss';
 
 const Header: React.FC = () => {
@@ -10,7 +11,7 @@ const Header: React.FC = () => {
   return (
     <header role="banner" className="header">
       <h1>{t('title')}</h1>
-      <button onClick={logout}>{t('logout')}</button>
+      <Button onClick={logout}>{t('logout')}</Button>
     </header>
   );
 };
