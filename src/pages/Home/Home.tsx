@@ -17,9 +17,9 @@ const Home: React.FC = () => {
       <main role="main">
         <div className="content">
           <Search setRecords={setRecords} setIsLoading={setIsLoading} />
-          {isLoading && <p>{t('isLoading')}</p>}
+          {isLoading && <p className="search-status">{t('isLoading')}</p>}
           {records && records.length === 0 && !isLoading && (
-            <p>{t('noResults')}</p>
+            <p className="search-status">{t('noResults')}</p>
           )}
           {records && records.length > 0 && !isLoading && (
             <ResultList records={records} />
