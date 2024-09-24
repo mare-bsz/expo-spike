@@ -8,9 +8,11 @@ type ResultListProps = {
 
 const ResultList: React.FC<ResultListProps> = ({ records }) => {
   return (
-    <ul>
+    <ul className="result-list">
       {records?.map((record, index) => (
-        <li key={index}>{`${record.inventarnummer}: ${record.werktitel}`}</li>
+        <li className="result-list__item" key={index}>
+          {`${record.inventarnummer}: ${record.werktitel}`}
+        </li>
       ))}
     </ul>
   );
