@@ -1,4 +1,4 @@
-import React, { FormEvent, SetStateAction, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
@@ -6,10 +6,11 @@ import { Record } from '../../types/types';
 import './Search.scss';
 
 type SearchProps = {
-  setRecords: React.Dispatch<SetStateAction<Record[] | undefined>>;
+  setRecords: React.Dispatch<React.SetStateAction<Record[] | undefined>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Search: React.FC<SearchProps> = ({ setRecords }) => {
+const Search: React.FC<SearchProps> = ({ setRecords, setIsLoading }) => {
   const { t } = useTranslation('search');
   const [searchTerm, setSearchTerm] = useState('');
   const { keycloakInstance } = useAuth();
@@ -26,14 +27,17 @@ const Search: React.FC<SearchProps> = ({ setRecords }) => {
           }
         );
         setRecords(response.data.records);
+        setIsLoading(false);
       } catch (error) {
         console.error('Failed to fetch data', error);
+        setIsLoading(false);
       }
     }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       await fetchData(searchTerm);
     } catch (error) {
