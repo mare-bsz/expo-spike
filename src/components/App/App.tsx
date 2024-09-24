@@ -8,6 +8,7 @@ import {
 import AuthProvider, { useAuth } from '../../contexts/AuthContext'; // Ensure correct path
 import Home from '../../pages/Home/Home';
 import Logout from '../../pages/Logout/Logout';
+import './App.scss';
 
 const AppContent: React.FC = () => {
   const { isAuthenticated, initialized } = useAuth();
@@ -17,13 +18,15 @@ const AppContent: React.FC = () => {
   }
 
   return (
-    <Routes>
-      <Route path="/logout" element={<Logout />} />
-      <Route
-        path="/"
-        element={isAuthenticated ? <Home /> : <Navigate to="/" />}
-      />
-    </Routes>
+    <div className="outer-wrapper">
+      <Routes>
+        <Route path="/logout" element={<Logout />} />
+        <Route
+          path="/"
+          element={isAuthenticated ? <Home /> : <Navigate to="/" />}
+        />
+      </Routes>
+    </div>
   );
 };
 
