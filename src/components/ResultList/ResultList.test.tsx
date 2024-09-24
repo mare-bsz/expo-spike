@@ -56,7 +56,7 @@ describe('ResultList Component', () => {
     records.forEach(record => {
       expect(
         screen.getByText(`${record.inventarnummer}: ${record.werktitel}`)
-      ).toBeInTheDocument();
+      ).toBeVisible();
     });
   });
 
