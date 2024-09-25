@@ -2,20 +2,14 @@ export type Term = {
   term: string;
 };
 
-export type ObjektBezeichnung = Term;
-
 export type Person = {
   rolle: string;
   nachname: string;
 };
 
-export type OnlinePublikation = Term;
-
-export type Sammlungsgliederung = Term;
-
-export type Medium = {
+export type Ort = {
   typ: string;
-  version: string;
+  term: string;
 };
 
 export type Record = {
@@ -30,12 +24,13 @@ export type Record = {
   inventarisierungsdatum: string;
   standort: string;
   objekttitel: string;
-  objektbezeichnung: ObjektBezeichnung[];
+  objektbezeichnung: Term[];
   werktitel: string;
   entstehungszeit: string;
   kurzbeschreibung: string;
   person: Person[];
-  onlinepublikation: OnlinePublikation[];
-  sammlungsgliederung: Sammlungsgliederung[];
-  medium: Medium[];
+  onlinepublikation: Term[];
+  sammlungsgliederung: Term[];
+  medium: { typ: string; version: string }[];
+  ort: Ort[];
 };
