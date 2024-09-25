@@ -16,7 +16,7 @@ const ResultList: React.FC<ResultListProps> = ({ records }) => {
 
   return (
     <ul className="result-list">
-      {records?.map((record, index) => (
+      {records.map((record, index) => (
         <li
           className="result-list__item"
           key={index}

@@ -1,5 +1,5 @@
 import React, { JSX, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { Record } from '../../types/types';
@@ -12,11 +12,18 @@ const DetailPage: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { keycloakInstance } = useAuth();
-  const [record, setRecord] = useState<Record | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
+  const [record, setRecord] = useState<Record | null>(
+    (location.state as Record) || null
+  );
+  const [isLoading, setIsLoading] = useState(!record);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (record) {
+      return;
+    }
+
     const fetchRecord = async () => {
       if (keycloakInstance?.token) {
         try {
@@ -39,7 +46,7 @@ const DetailPage: React.FC = () => {
     };
 
     fetchRecord();
-  }, [id, keycloakInstance]);
+  }, [id, keycloakInstance, record]);
 
   const formatValue = (value: unknown): string | JSX.Element => {
     if (typeof value === 'string') {
