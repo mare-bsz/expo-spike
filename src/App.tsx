@@ -5,9 +5,10 @@ import {
   Route,
   Routes,
 } from 'react-router-dom';
-import AuthProvider, { useAuth } from './contexts/AuthContext'; // Ensure correct path
+import AuthProvider, { useAuth } from './contexts/AuthContext';
 import Home from './pages/Home/Home';
 import Logout from './pages/Logout/Logout';
+import DetailPage from './pages/DetailPage/DetailPage';
 import Header from './components/Header/Header';
 import './App.scss';
 
@@ -28,6 +29,10 @@ const AppContent: React.FC = () => {
             <Route
               path="/"
               element={isAuthenticated ? <Home /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/detail/:id"
+              element={isAuthenticated ? <DetailPage /> : <Navigate to="/" />}
             />
           </Routes>
         </div>
