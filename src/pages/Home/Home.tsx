@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Header from '../../components/Header/Header';
 import './Home.scss';
 import Search from '../../components/Search/Search';
 import ResultList from '../../components/ResultList/ResultList';
@@ -13,19 +12,14 @@ const Home: React.FC = () => {
 
   return (
     <div className="home">
-      <Header />
-      <main role="main">
-        <div className="content">
-          <Search setRecords={setRecords} setIsLoading={setIsLoading} />
-          {isLoading && <p className="search-status">{t('isLoading')}</p>}
-          {records && records.length === 0 && !isLoading && (
-            <p className="search-status">{t('noResults')}</p>
-          )}
-          {records && records.length > 0 && !isLoading && (
-            <ResultList records={records} />
-          )}
-        </div>
-      </main>
+      <Search setRecords={setRecords} setIsLoading={setIsLoading} />
+      {isLoading && <p className="search-status">{t('isLoading')}</p>}
+      {records && records.length === 0 && !isLoading && (
+        <p className="search-status">{t('noResults')}</p>
+      )}
+      {records && records.length > 0 && !isLoading && (
+        <ResultList records={records} />
+      )}
     </div>
   );
 };
