@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/AuthContext';
-import Button from '../../lib/Button/Button';
+import Button from '../../shared/Button/Button';
 import './Header.scss';
 
 const Header: React.FC = () => {

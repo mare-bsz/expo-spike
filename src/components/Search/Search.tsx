@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { Record } from '../../types/types';
 import './Search.scss';
-import Button from '../../lib/Button/Button';
+import Button from '../../shared/Button/Button';
 
 type SearchProps = {
   setRecords: React.Dispatch<React.SetStateAction<Record[] | undefined>>;
