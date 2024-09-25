@@ -57,7 +57,7 @@ const DetailPage: React.FC = () => {
               <dl>
                 {Object.entries(item).map(([itemKey, itemValue]) => (
                   <React.Fragment key={itemKey}>
-                    <dt>{t(itemKey)}</dt>
+                    <dt>{t(`record.${itemKey}`)}</dt>
                     <dd>{String(itemValue)}</dd>
                   </React.Fragment>
                 ))}
@@ -77,7 +77,7 @@ const DetailPage: React.FC = () => {
   };
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <p>{t('loading')}</p>;
   }
 
   if (error) {
@@ -85,17 +85,17 @@ const DetailPage: React.FC = () => {
   }
 
   if (!record) {
-    return <p>No record found</p>;
+    return <p>{t('noRecord')}</p>;
   }
 
   return (
     <div className="detail-page">
-      <Button onClick={() => navigate('/')}>Back to Home</Button>
+      <Button onClick={() => navigate('/')}>{t('backToHome')}</Button>
       <h1>{`${record.inventarnummer}: ${record.werktitel}`}</h1>
       <dl>
         {Object.entries(record).map(([key, value]) => (
           <React.Fragment key={key}>
-            <dt>{t(key)}</dt>
+            <dt>{t(`record.${key}`)}</dt>
             <dd>{formatValue(value)}</dd>
           </React.Fragment>
         ))}
