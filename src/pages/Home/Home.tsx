@@ -13,6 +13,7 @@ const Home: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const location = useLocation();
 
+  // handle records and searchTerm on update, like when navigating
   useEffect(() => {
     const stateRecords = (location.state as { records: Record[] })?.records;
     const query = new URLSearchParams(location.search).get('qry');
