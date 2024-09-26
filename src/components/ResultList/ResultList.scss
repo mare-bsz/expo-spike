@@ -7,4 +7,13 @@
 .result-list__item {
   border-bottom: 1px solid lightgray;
   padding: 10px;
+
+  a {
+    color: #00408A;
+
+    &:hover {
+      color: #0054B8;
+      text-decoration: underline;
+    }
+  }
 }

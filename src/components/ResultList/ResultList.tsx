@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Record } from '../../types/types';
 import './ResultList.scss';
 
@@ -8,21 +8,13 @@ type ResultListProps = {
 };
 
 const ResultList: React.FC<ResultListProps> = ({ records }) => {
-  const navigate = useNavigate();
-
-  const handleClick = (record: Record) => {
-    navigate(`/detail/${record.imdasid}`, { state: record });
-  };
-
   return (
     <ul className="result-list">
       {records.map((record, index) => (
-        <li
-          className="result-list__item"
-          key={index}
-          onClick={() => handleClick(record)}
-        >
-          {`${record.inventarnummer}: ${record.werktitel}`}
+        <li key={index} className="result-list__item">
+          <Link to={`/detail/${record.imdasid}`} state={record}>
+            {`${record.inventarnummer}: ${record.werktitel}`}
+          </Link>
         </li>
       ))}
     </ul>
