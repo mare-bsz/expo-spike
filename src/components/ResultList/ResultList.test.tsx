@@ -52,10 +52,12 @@ const records: Record[] = [
 ];
 
 describe('ResultList Component', () => {
+  const searchTerm = 'test search';
+
   test('renders a list of records', () => {
     render(
       <MemoryRouter>
-        <ResultList records={records} />
+        <ResultList records={records} searchTerm={searchTerm} />
       </MemoryRouter>
     );
 
@@ -69,10 +71,27 @@ describe('ResultList Component', () => {
   test('renders an empty list without errors', () => {
     render(
       <MemoryRouter>
-        <ResultList records={[]} />
+        <ResultList records={[]} searchTerm={searchTerm} />
       </MemoryRouter>
     );
 
-    expect(screen.queryByText(/:/)).toBeNull();
+    expect(screen.queryByText(':')).toBeNull();
+  });
+
+  test('includes searchTerm in link state', () => {
+    render(
+      <MemoryRouter>
+        <ResultList records={records} searchTerm={searchTerm} />
+      </MemoryRouter>
+    );
+
+    records.forEach(record => {
+      const link = screen
+        .getByText(`${record.inventarnummer}: ${record.werktitel}`)
+        .closest('a');
+
+      // Ensure the link has the correct href attribute
+      expect(link).toHaveAttribute('href', `/detail/${record.imdasid}`);
+    });
   });
 });

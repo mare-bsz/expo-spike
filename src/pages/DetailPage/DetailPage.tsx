@@ -14,8 +14,12 @@ const DetailPage: React.FC = () => {
   const { keycloakInstance } = useAuth();
   const location = useLocation();
   const [record, setRecord] = useState<Record | null>(
-    (location.state as Record) || null
+    (location.state as { record: Record })?.record || null
   );
+  const searchTerm =
+    (location.state as { searchTerm: string })?.searchTerm || '';
+  const records = (location.state as { records: Record[] })?.records || [];
+
   const [isLoading, setIsLoading] = useState(!record);
   const [error, setError] = useState<string | null>(null);
 
@@ -83,6 +87,17 @@ const DetailPage: React.FC = () => {
     return String(value);
   };
 
+  const handleBackToHome = () => {
+    if (searchTerm && records.length > 0) {
+      navigate(`/?qry=${encodeURIComponent(searchTerm)}`, {
+        state: { records },
+        replace: true,
+      });
+    } else {
+      navigate('/', { replace: true });
+    }
+  };
+
   if (isLoading) {
     return <p>{t('loading')}</p>;
   }
@@ -97,7 +112,7 @@ const DetailPage: React.FC = () => {
 
   return (
     <div className="detail-page">
-      <Button onClick={() => navigate('/')}>{t('backToHome')}</Button>
+      <Button onClick={handleBackToHome}>{t('backToHome')}</Button>
       <h1>{`${record.inventarnummer}: ${record.werktitel}`}</h1>
       <dl>
         {Object.entries(record).map(([key, value]) => (

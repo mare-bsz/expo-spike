@@ -1,20 +1,38 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { Record } from '../../types/types';
-import './Search.scss';
 import Button from '../../shared/Button/Button';
+import './Search.scss';
 
 type SearchProps = {
   setRecords: React.Dispatch<React.SetStateAction<Record[] | undefined>>;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Search: React.FC<SearchProps> = ({ setRecords, setIsLoading }) => {
+const Search: React.FC<SearchProps> = ({
+  setRecords,
+  setIsLoading,
+  searchTerm,
+  setSearchTerm,
+}) => {
   const { t } = useTranslation('search');
-  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
   const { keycloakInstance } = useAuth();
+  const urlParams = new URLSearchParams(location.search);
+
+  useEffect(() => {
+    const query = urlParams.get('qry');
+    if (query) {
+      setSearchTerm(query);
+      fetchData(query);
+    }
+  }, []); // Run only once on mount
 
   const fetchData = async (query: string) => {
     if (keycloakInstance?.token) {
@@ -36,14 +54,11 @@ const Search: React.FC<SearchProps> = ({ setRecords, setIsLoading }) => {
     }
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    try {
-      await fetchData(searchTerm);
-    } catch (error) {
-      console.error('Error occurred during fetch', error);
-    }
+    fetchData(searchTerm);
+    navigate(`/?qry=${encodeURIComponent(searchTerm)}`, { replace: true });
   };
 
   return (
