@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { MemoryRouter } from 'react-router-dom';
 import ResultList from './ResultList';
 import { Record } from '../../types/types';
 
@@ -25,6 +25,7 @@ const records: Record[] = [
     onlinepublikation: [{ term: 'Online 1' }],
     sammlungsgliederung: [{ term: 'Sammlung 1' }],
     medium: [{ typ: 'Bild', version: 'v1' }],
+    ort: [{ typ: 'Herstellungsort', term: 'Stammheim <O>' }],
   },
   {
     imdasid: '2',
@@ -46,12 +47,17 @@ const records: Record[] = [
     onlinepublikation: [{ term: 'Online 2' }],
     sammlungsgliederung: [{ term: 'Sammlung 2' }],
     medium: [{ typ: 'Bild', version: 'v2' }],
+    ort: [{ typ: 'Herstellungsort', term: 'Stammheim <O>' }],
   },
 ];
 
 describe('ResultList Component', () => {
   test('renders a list of records', () => {
-    render(<ResultList records={records} />);
+    render(
+      <MemoryRouter>
+        <ResultList records={records} />
+      </MemoryRouter>
+    );
 
     records.forEach(record => {
       expect(
@@ -61,7 +67,11 @@ describe('ResultList Component', () => {
   });
 
   test('renders an empty list without errors', () => {
-    render(<ResultList records={[]} />);
+    render(
+      <MemoryRouter>
+        <ResultList records={[]} />
+      </MemoryRouter>
+    );
 
     expect(screen.queryByText(/:/)).toBeNull();
   });
