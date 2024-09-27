@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 import Keycloak from 'keycloak-js';
-import { initKeycloak, keycloakInstance } from '../services/auth'; // Ensure these services are correctly set up
+import { initKeycloak, keycloakInstance } from '../services/auth';
 
 interface AuthContextType {
   isAuthenticated: boolean;
