@@ -1,9 +1,12 @@
+@import '../../styles/mixins';
+
 .header {
   background-color: #f8f9fa;
-  padding: 1rem;
+  padding: toRem(16);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: toRem(10);
 
   h1 {
     margin: 0;

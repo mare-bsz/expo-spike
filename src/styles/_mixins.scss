@@ -1,0 +1,6 @@
+@import 'variables';
+
+@function toRem($value) {
+  $remValue: calc(($value / $base-font-size)) + rem;
+  @return $remValue;
+}
