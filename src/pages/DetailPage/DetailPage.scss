@@ -2,19 +2,19 @@
 
 .detail-page {
   h1 {
-    margin-top: toRem(16);
-    margin-bottom: toRem(32);
+    margin-top: pxtorem(16);
+    margin-bottom: pxtorem(32);
   }
 
   &__back-button {
-    margin-bottom: toRem(20);
+    margin-bottom: pxtorem(20);
   }
 
   &__definition-list {
     display: grid;
     grid-template-columns: max-content auto;
-    gap: toRem(16);
-    margin: toRem(16) 0;
+    gap: pxtorem(16);
+    margin: pxtorem(16) 0;
 
     dt {
       font-weight: bold;
@@ -31,7 +31,7 @@
 
   &__value-list {
     margin: 0;
-    padding-inline-start: toRem(15);
+    padding-inline-start: pxtorem(15);
 
     .detail-page__definition-list {
       margin: 0;
@@ -39,6 +39,6 @@
   }
 
   &__value-list-item {
-    margin-bottom: toRem(10);
+    margin-bottom: pxtorem(10);
   }
 }

@@ -1,7 +1,7 @@
 @import '../../styles/mixins';
 
 .search {
-  margin-bottom: toRem(20);
+  margin-bottom: pxtorem(20);
 }
 
 .search__form {
@@ -15,12 +15,12 @@
   width: 100%;
 
   label {
-    margin-right: toRem(10);
+    margin-right: pxtorem(10);
   }
 
   input {
-    height: toRem(25);
-    margin-right: toRem(10);
+    height: pxtorem(25);
+    margin-right: pxtorem(10);
     width: 100%;
   }
 }

@@ -2,11 +2,11 @@
 
 .header {
   background-color: #f8f9fa;
-  padding: toRem(16);
+  padding: pxtorem(16);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: toRem(10);
+  margin-bottom: pxtorem(10);
 
   h1 {
     margin: 0;

@@ -8,7 +8,7 @@
 
 .result-list__item {
   border-bottom: 1px solid lightgray;
-  padding: toRem(10);
+  padding: pxtorem(10);
 
   a {
     color: #00408A;
