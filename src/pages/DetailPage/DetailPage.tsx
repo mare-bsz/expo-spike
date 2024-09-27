@@ -1,91 +1,22 @@
-import React, { JSX, useEffect, useState } from 'react';
+import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { Record } from '../../types/types';
 import Button from '../../shared/Button/Button';
+import useFetchRecord from './hooks/useFetchRecord';
+import { formatRecordValue } from './utils/formatters';
 import './DetailPage.scss';
-import { useAuth } from '../../contexts/AuthContext';
 
 const DetailPage: React.FC = () => {
   const { t } = useTranslation('detail');
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const { keycloakInstance } = useAuth();
   const location = useLocation();
-  const [record, setRecord] = useState<Record | null>(
-    (location.state as { record: Record })?.record || null
-  );
+
+  const { record, isLoading, error } = useFetchRecord(id ?? '');
   const searchTerm =
     (location.state as { searchTerm: string })?.searchTerm || '';
   const records = (location.state as { records: Record[] })?.records || [];
-
-  const [isLoading, setIsLoading] = useState(!record);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (record) {
-      return;
-    }
-
-    const fetchRecord = async () => {
-      if (keycloakInstance?.token) {
-        try {
-          const response = await axios.get(
-            `/sbspike/selekt?id=${id}&mim=json`,
-            {
-              headers: {
-                Authorization: `Bearer ${keycloakInstance.token}`,
-              },
-            }
-          );
-          setRecord(response.data.records[0]);
-          setIsLoading(false);
-        } catch (err) {
-          const errorMessage = (err as Error).message || String(err);
-          setError(`Failed to fetch record: ${errorMessage}`);
-          setIsLoading(false);
-        }
-      }
-    };
-
-    fetchRecord();
-  }, [id, keycloakInstance, record]);
-
-  const formatValue = (value: unknown): string | JSX.Element => {
-    if (typeof value === 'string') {
-      return value;
-    }
-    if (
-      Array.isArray(value) &&
-      value.length > 0 &&
-      typeof value[0] === 'object'
-    ) {
-      return (
-        <ul>
-          {value.map((item, index) => (
-            <li key={index}>
-              <dl>
-                {Object.entries(item).map(([itemKey, itemValue]) => (
-                  <React.Fragment key={itemKey}>
-                    <dt>{t(`record.${itemKey}`)}</dt>
-                    <dd>{String(itemValue)}</dd>
-                  </React.Fragment>
-                ))}
-              </dl>
-            </li>
-          ))}
-        </ul>
-      );
-    }
-    if (Array.isArray(value)) {
-      return JSON.stringify(value);
-    }
-    if (typeof value === 'object' && value !== null) {
-      return JSON.stringify(value);
-    }
-    return String(value);
-  };
 
   const handleBackToHome = () => {
     if (searchTerm && records.length > 0) {
@@ -118,7 +49,7 @@ const DetailPage: React.FC = () => {
         {Object.entries(record).map(([key, value]) => (
           <React.Fragment key={key}>
             <dt>{t(`record.${key}`)}</dt>
-            <dd>{formatValue(value)}</dd>
+            <dd>{formatRecordValue(value, t)}</dd>
           </React.Fragment>
         ))}
       </dl>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import './Home.scss';
+import './HomePage.scss';
 import Search from '../../components/Search/Search';
 import ResultList from '../../components/ResultList/ResultList';
 import { Record } from '../../types/types';
 import { useTranslation } from 'react-i18next';
 
-const Home: React.FC = () => {
+const HomePage: React.FC = () => {
   const { t } = useTranslation('home');
   const [records, setRecords] = useState<Record[]>();
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +28,7 @@ const Home: React.FC = () => {
   }, [location.state, location.search]);
 
   return (
-    <div className="home">
+    <div className="home-page">
       <Search
         setRecords={setRecords}
         setIsLoading={setIsLoading}
@@ -46,4 +46,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default HomePage;
