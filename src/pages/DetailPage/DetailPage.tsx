@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Record } from '../../types/types';
 import Button from '../../shared/Button/Button';
+import Status from '../../shared/Status/Status';
 import useFetchRecord from './hooks/useFetchRecord';
 import { formatRecordValue } from './utils/formatters';
 import './DetailPage.scss';
@@ -29,33 +30,28 @@ const DetailPage: React.FC = () => {
     }
   };
 
-  if (isLoading) {
-    return <p>{t('loading')}</p>;
-  }
-
-  if (error) {
-    return <p>{error}</p>;
-  }
-
-  if (!record) {
-    return <p>{t('noRecord')}</p>;
-  }
-
   return (
     <>
       <Button className="detail-page__back-button" onClick={handleBackToHome}>
         {t('backToHome')}
       </Button>
       <div className="detail-page">
-        <h1>{`${record.inventarnummer}: ${record.werktitel}`}</h1>
-        <dl className="detail-page__definition-list">
-          {Object.entries(record).map(([key, value]) => (
-            <React.Fragment key={key}>
-              <dt>{t(`record.${key}`)}</dt>
-              <dd>{formatRecordValue(value, t)}</dd>
-            </React.Fragment>
-          ))}
-        </dl>
+        {isLoading && <Status>{t('loading')}</Status>}
+        {error && <Status>{error}</Status>}
+        {!error && !isLoading && !record && <Status>{t('noRecord')}</Status>}
+        {record && (
+          <>
+            <h1>{`${record.inventarnummer}: ${record.werktitel}`}</h1>
+            <dl className="detail-page__definition-list">
+              {Object.entries(record).map(([key, value]) => (
+                <React.Fragment key={key}>
+                  <dt>{t(`record.${key}`)}</dt>
+                  <dd>{formatRecordValue(value, t)}</dd>
+                </React.Fragment>
+              ))}
+            </dl>
+          </>
+        )}
       </div>
     </>
   );

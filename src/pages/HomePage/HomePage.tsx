@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import './HomePage.scss';
 import Search from '../../components/Search/Search';
 import ResultList from '../../components/ResultList/ResultList';
+import Status from '../../shared/Status/Status';
 import { Record } from '../../types/types';
 import { useTranslation } from 'react-i18next';
 
@@ -35,9 +35,9 @@ const HomePage: React.FC = () => {
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
       />
-      {isLoading && <p className="search-status">{t('isLoading')}</p>}
+      {isLoading && <Status>{t('isLoading')}</Status>}
       {records && records.length === 0 && !isLoading && (
-        <p className="search-status">{t('noResults')}</p>
+        <Status>{t('noResults')}</Status>
       )}
       {records && records.length > 0 && !isLoading && (
         <ResultList records={records} searchTerm={searchTerm} />
