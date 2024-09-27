@@ -14,10 +14,10 @@ export const formatRecordValue = (
     typeof value[0] === 'object'
   ) {
     return (
-      <ul>
+      <ul className="detail-page__value-list">
         {value.map((item, index) => (
-          <li key={index}>
-            <dl>
+          <li className="detail-page__value-list-item" key={index}>
+            <dl className="detail-page__definition-list">
               {Object.entries(item).map(([itemKey, itemValue]) => (
                 <React.Fragment key={itemKey}>
                   <dt>{t(`record.${itemKey}`)}</dt>

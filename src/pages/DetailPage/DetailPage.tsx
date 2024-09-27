@@ -42,18 +42,22 @@ const DetailPage: React.FC = () => {
   }
 
   return (
-    <div className="detail-page">
-      <Button onClick={handleBackToHome}>{t('backToHome')}</Button>
-      <h1>{`${record.inventarnummer}: ${record.werktitel}`}</h1>
-      <dl>
-        {Object.entries(record).map(([key, value]) => (
-          <React.Fragment key={key}>
-            <dt>{t(`record.${key}`)}</dt>
-            <dd>{formatRecordValue(value, t)}</dd>
-          </React.Fragment>
-        ))}
-      </dl>
-    </div>
+    <>
+      <Button className="detail-page__back-button" onClick={handleBackToHome}>
+        {t('backToHome')}
+      </Button>
+      <div className="detail-page">
+        <h1>{`${record.inventarnummer}: ${record.werktitel}`}</h1>
+        <dl className="detail-page__definition-list">
+          {Object.entries(record).map(([key, value]) => (
+            <React.Fragment key={key}>
+              <dt>{t(`record.${key}`)}</dt>
+              <dd>{formatRecordValue(value, t)}</dd>
+            </React.Fragment>
+          ))}
+        </dl>
+      </div>
+    </>
   );
 };
 

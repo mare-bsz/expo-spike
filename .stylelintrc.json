@@ -3,6 +3,12 @@
     "stylelint-config-standard-scss"
   ],
   "rules": {
+    "selector-class-pattern": [
+      "^[a-z]+(-[a-z]+)*(__[a-z]+(-[a-z]+)*)*(--[a-z]+(-[a-z]+)*)*$",
+      {
+        "message": "Expected class selector to conform to BEM (Block Element Modifier) naming convention"
+      }
+    ],
     "block-no-empty": true,
     "no-duplicate-selectors": true,
     "color-hex-length": "short",
