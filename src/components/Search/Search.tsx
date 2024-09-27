@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
@@ -22,12 +22,19 @@ const Search: React.FC<SearchProps> = ({
 }) => {
   const { t } = useTranslation('search');
   const navigate = useNavigate();
+  const location = useLocation();
   const { keycloakInstance } = useAuth();
 
-  // trigger search, if there is a searchTerm set on mount (like on navigation)
+  // trigger search, if there is a query in the location on mount
   useEffect(() => {
-    if (searchTerm) {
-      fetchData(searchTerm);
+    const stateRecords = (location.state as { records: Record[] })?.records;
+
+    if (!stateRecords) {
+      const query = new URLSearchParams(location.search).get('qry');
+      if (query) {
+        setSearchTerm(query);
+        fetchData(query);
+      }
     }
   }, []);
 
