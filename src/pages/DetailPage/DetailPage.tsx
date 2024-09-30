@@ -5,7 +5,7 @@ import { Record } from '../../types/types';
 import Button from '../../shared/Button/Button';
 import Status from '../../shared/Status/Status';
 import useFetchRecord from './hooks/useFetchRecord';
-import { formatRecordValue } from './utils/formatters';
+import DetailPageDefinitionList from './partials/DetailPageDefinitionList';
 import './DetailPage.scss';
 
 const DetailPage: React.FC = () => {
@@ -42,14 +42,7 @@ const DetailPage: React.FC = () => {
         {record && (
           <>
             <h1>{`${record.inventarnummer}: ${record.werktitel}`}</h1>
-            <dl className="detail-page__definition-list">
-              {Object.entries(record).map(([key, value]) => (
-                <React.Fragment key={key}>
-                  <dt>{t(`record.${key}`)}</dt>
-                  <dd>{formatRecordValue(value, t)}</dd>
-                </React.Fragment>
-              ))}
-            </dl>
+            <DetailPageDefinitionList record={record} />
           </>
         )}
       </div>
