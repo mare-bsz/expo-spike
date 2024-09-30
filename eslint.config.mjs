@@ -51,6 +51,13 @@ export default [
       'react/react-in-jsx-scope': 'off',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       '@typescript-eslint/no-use-before-define': 'off',
+      '@typescript-eslint/ban-ts-comment': [
+        'error',
+        {
+          'ts-ignore': 'allow-with-description',
+          minimumDescriptionLength: 3,
+        },
+      ],
     },
   },
 ];
