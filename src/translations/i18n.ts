@@ -4,13 +4,15 @@ import headerDe from './header.de.json';
 import homeDe from './home.de.json';
 import searchDe from './search.de.json';
 import detailDe from './detail.de.json';
+import imageDe from './image.de.json';
 
 const resources = {
   de: {
+    detail: detailDe,
     header: headerDe,
     home: homeDe,
+    image: imageDe,
     search: searchDe,
-    detail: detailDe,
   },
 };
 

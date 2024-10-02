@@ -6,6 +6,7 @@ import Button from '../../shared/Button/Button';
 import Status from '../../shared/Status/Status';
 import useFetchRecord from './hooks/useFetchRecord';
 import DetailPageDefinitionList from './partials/DetailPageDefinitionList';
+import Image from '../../shared/Image/Image';
 import './DetailPage.scss';
 
 const DetailPage: React.FC = () => {
@@ -42,6 +43,11 @@ const DetailPage: React.FC = () => {
         {record && (
           <>
             <h1>{record.anzeigetitel}</h1>
+            <Image
+              imdasId={record.imdasid}
+              title={record.anzeigetitel}
+              width={400}
+            />
             <DetailPageDefinitionList record={record} />
           </>
         )}
