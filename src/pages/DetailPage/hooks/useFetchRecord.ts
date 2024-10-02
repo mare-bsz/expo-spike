@@ -4,20 +4,20 @@ import { Record } from '../../../types/types';
 import { useAuth } from '../../../contexts/AuthContext';
 
 const useFetchRecord = (id: string) => {
-  const { keycloakInstance } = useAuth();
+  const { token } = useAuth();
   const [record, setRecord] = useState<Record | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchRecord = async () => {
-      if (keycloakInstance?.token) {
+      if (token) {
         try {
           const response = await axios.get(
             `/sbspike/selekt?id=${id}&mim=json`,
             {
               headers: {
-                Authorization: `Bearer ${keycloakInstance.token}`,
+                Authorization: `Bearer ${token}`,
               },
             }
           );
@@ -32,7 +32,7 @@ const useFetchRecord = (id: string) => {
     };
 
     fetchRecord();
-  }, [id, keycloakInstance]);
+  }, [id, token]);
 
   return { record, isLoading, error };
 };

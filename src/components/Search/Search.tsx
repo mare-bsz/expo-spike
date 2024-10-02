@@ -23,7 +23,7 @@ const Search: React.FC<SearchProps> = ({
   const { t } = useTranslation('search');
   const navigate = useNavigate();
   const location = useLocation();
-  const { keycloakInstance } = useAuth();
+  const { token } = useAuth();
 
   // trigger search, if there is a query in the location on mount
   useEffect(() => {
@@ -39,13 +39,13 @@ const Search: React.FC<SearchProps> = ({
   }, []);
 
   const fetchData = async (query: string) => {
-    if (keycloakInstance?.token) {
+    if (token) {
       try {
         const response = await axios.get(
           `/sbspike/selekt?qry=text all "${query}"&len=10&mim=json`,
           {
             headers: {
-              Authorization: `Bearer ${keycloakInstance.token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
