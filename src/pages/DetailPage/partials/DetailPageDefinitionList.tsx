@@ -14,12 +14,18 @@ const DetailPageDefinitionList: React.FC<DetailPageDefinitionListProps> = ({
 
   return (
     <dl className="detail-page__definition-list">
-      {Object.entries(record).map(([key, value]) => (
-        <React.Fragment key={key}>
-          <dt>{t(`record.${key}`)}</dt>
-          <dd>{formatRecordValue(value, t)}</dd>
-        </React.Fragment>
-      ))}
+      {Object.entries(record).map(([key, value]) => {
+        if (key === 'anzeigetitel') {
+          return null;
+        }
+
+        return (
+          <React.Fragment key={key}>
+            <dt>{t(`record.${key}`)}</dt>
+            <dd>{formatRecordValue(value, t)}</dd>
+          </React.Fragment>
+        );
+      })}
     </dl>
   );
 };

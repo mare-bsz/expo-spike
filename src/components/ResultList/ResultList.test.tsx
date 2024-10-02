@@ -7,6 +7,7 @@ import { Record } from '../../types/types';
 const records: Record[] = [
   {
     imdasid: '1',
+    anzeigetitel: '0001: Werktitel 1',
     objektstatus: 'Status 1',
     bereich: 'Bereich 1',
     sammlung: 'Sammlung 1',
@@ -29,6 +30,7 @@ const records: Record[] = [
   },
   {
     imdasid: '2',
+    anzeigetitel: '0002: Werktitel 2',
     objektstatus: 'Status 2',
     bereich: 'Bereich 2',
     sammlung: 'Sammlung 2',

@@ -41,7 +41,7 @@ const DetailPage: React.FC = () => {
         {!error && !isLoading && !record && <Status>{t('noRecord')}</Status>}
         {record && (
           <>
-            <h1>{`${record.inventarnummer}: ${record.werktitel}`}</h1>
+            <h1>{record.anzeigetitel}</h1>
             <DetailPageDefinitionList record={record} />
           </>
         )}

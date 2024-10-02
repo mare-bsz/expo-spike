@@ -7,13 +7,14 @@ export type Person = {
   nachname: string;
 };
 
-export type Ort = {
+export type Location = {
   typ: string;
   term: string;
 };
 
 export type Record = {
   imdasid: string;
+  anzeigetitel: string;
   objektstatus: string;
   bereich: string;
   sammlung: string;
@@ -32,5 +33,5 @@ export type Record = {
   onlinepublikation: Term[];
   sammlungsgliederung: Term[];
   medium: { typ: string; version: string }[];
-  ort: Ort[];
+  ort: Location[];
 };

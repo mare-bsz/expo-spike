@@ -17,7 +17,7 @@ const ResultList: React.FC<ResultListProps> = ({ records, searchTerm }) => {
             to={`/detail/${record.imdasid}`}
             state={{ record, searchTerm, records }}
           >
-            {`${record.inventarnummer}: ${record.werktitel}`}
+            {record.anzeigetitel}
           </Link>
         </li>
       ))}
