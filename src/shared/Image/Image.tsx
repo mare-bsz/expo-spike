@@ -31,7 +31,7 @@ const Image: React.FC<ImageProps> = ({ imdasId, modifier, title, width }) => {
       alt={alt}
       width={width}
       onError={() => {
-        // if there is no image (404), just show empty space
+        // if there is no image (40x), just show empty space
         setIsInvisible(true);
       }}
     />
