@@ -5,12 +5,13 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import Keycloak from 'keycloak-js';
 import { initKeycloak, keycloakInstance } from '../services/auth';
 
 interface AuthContextType {
   isAuthenticated: boolean;
   initialized: boolean;
-  token?: string;
+  keycloakInstance: Keycloak | null;
   logout: () => void;
 }
 
@@ -31,11 +32,9 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     keycloakInstance.logout();
   };
 
-  const token = keycloakInstance.token;
-
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, initialized, token, logout }}
+      value={{ isAuthenticated, initialized, keycloakInstance, logout }}
     >
       {children}
     </AuthContext.Provider>
