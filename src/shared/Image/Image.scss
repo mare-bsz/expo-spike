@@ -1,0 +1,19 @@
+.image {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+/**
+  MODIFIERS
+ */
+
+.image--cover {
+  height: 100%;
+  object-fit: cover;
+}
+
+.image--invisible {
+  height: 0;
+  visibility: hidden;
+}

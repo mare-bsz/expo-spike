@@ -10,12 +10,25 @@
   border-bottom: 1px solid lightgray;
   padding: pxtorem(10);
 
-  a {
+  .result-list__link {
     color: #00408A;
+    display: flex;
+    align-items: center;
 
     &:hover {
       color: #0054B8;
       text-decoration: underline;
     }
   }
+}
+
+.result-list__item-image {
+  height: pxtorem(100);
+  width: pxtorem(100);
+  margin-right: pxtorem(20);
+  flex-shrink: 0;
+}
+
+.result-list__item-title {
+  margin-left: 10px;
 }
