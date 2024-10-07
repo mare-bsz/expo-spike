@@ -62,16 +62,13 @@ const Search: React.FC<SearchProps> = ({
   };
 
   const triggerSearch = () => {
-    if (searchTerm.trim()) {
-      // Ensure searchTerm is non-empty
-      setIsLoading(true);
-      fetchData(searchTerm, firstResultPosition).then(() => {
-        navigate(
-          `/?qry=${encodeURIComponent(searchTerm)}&fst=${firstResultPosition}`,
-          { replace: true }
-        );
-      });
-    }
+    setIsLoading(true);
+    fetchData(searchTerm, firstResultPosition).then(() => {
+      navigate(
+        `/?qry=${encodeURIComponent(searchTerm)}&fst=${firstResultPosition}`,
+        { replace: true }
+      );
+    });
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
