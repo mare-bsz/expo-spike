@@ -44,6 +44,7 @@ const HomePage: React.FC = () => {
         setSearchTerm={setSearchTerm}
         setNumFound={setNumFound}
         firstResultPosition={firstResultPosition}
+        setFirstResultPosition={setFirstResultPosition}
       />
       {isLoading && <Status>{t('isLoading')}</Status>}
       {records && records.length === 0 && !isLoading && (

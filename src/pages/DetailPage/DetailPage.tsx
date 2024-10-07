@@ -26,10 +26,13 @@ const DetailPage: React.FC = () => {
 
   const handleBackToHome = () => {
     if (searchTerm && records.length > 0) {
-      navigate(`/?qry=${encodeURIComponent(searchTerm)}`, {
-        state: { records, firstResultPosition, numFound },
-        replace: true,
-      });
+      navigate(
+        `/?qry=${encodeURIComponent(searchTerm)}&fst=${firstResultPosition}`,
+        {
+          state: { records, firstResultPosition, numFound },
+          replace: true,
+        }
+      );
     } else {
       navigate('/', { replace: true });
     }

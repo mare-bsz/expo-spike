@@ -14,6 +14,7 @@ type SearchProps = {
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
   setNumFound: React.Dispatch<React.SetStateAction<number>>;
   firstResultPosition: number;
+  setFirstResultPosition: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const Search: React.FC<SearchProps> = ({
@@ -23,25 +24,35 @@ const Search: React.FC<SearchProps> = ({
   setSearchTerm,
   setNumFound,
   firstResultPosition,
+  setFirstResultPosition,
 }) => {
   const { t } = useTranslation('search');
   const navigate = useNavigate();
   const location = useLocation();
   const { keycloakInstance } = useAuth();
 
-  const fetchData = async (query: string) => {
+  const fetchData = async (query: string, fst: number) => {
     if (keycloakInstance?.token) {
       try {
         const response = await axios.get(
-          `/sbspike/selekt?qry=text all "${query}"&len=25&fst=${firstResultPosition}&mim=json`,
+          `/sbspike/selekt?qry=text all "${query}"&len=25&fst=${fst}&mim=json`,
           {
             headers: {
               Authorization: `Bearer ${keycloakInstance.token}`,
             },
           }
         );
-        setRecords(response.data.records);
-        setNumFound(response.data.head.numFound);
+        const records = response.data.records;
+        const numFound = response.data.head.numFound;
+
+        if (fst >= numFound) {
+          setFirstResultPosition(0);
+        } else {
+          setFirstResultPosition(fst);
+        }
+
+        setRecords(records);
+        setNumFound(numFound);
         setIsLoading(false);
       } catch (error) {
         console.error('Failed to fetch data', error);
@@ -52,16 +63,22 @@ const Search: React.FC<SearchProps> = ({
 
   const triggerSearch = () => {
     if (searchTerm.trim()) {
+      // Ensure searchTerm is non-empty
       setIsLoading(true);
-      fetchData(searchTerm);
-      navigate(`/?qry=${encodeURIComponent(searchTerm)}`, { replace: true });
+      fetchData(searchTerm, firstResultPosition).then(() => {
+        navigate(
+          `/?qry=${encodeURIComponent(searchTerm)}&fst=${firstResultPosition}`,
+          { replace: true }
+        );
+      });
     }
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setNumFound(0);
-    triggerSearch();
+    setNumFound(0); // Reset numFound when triggering a new search
+    setFirstResultPosition(0); // Reset firstResultPosition when triggering a new search
+    triggerSearch(); // Initiate the search
   };
 
   // trigger search, if there is a query in the location on mount
@@ -69,10 +86,14 @@ const Search: React.FC<SearchProps> = ({
     const stateRecords = (location.state as { records: Record[] })?.records;
 
     if (!stateRecords) {
-      const query = new URLSearchParams(location.search).get('qry');
+      const urlParams = new URLSearchParams(location.search);
+      const query = urlParams.get('qry');
+      const fst = parseInt(urlParams.get('fst') || '0', 10);
+
       if (query) {
         setSearchTerm(query);
-        fetchData(query);
+        setFirstResultPosition(fst);
+        fetchData(query, fst);
       }
     }
   }, []);
