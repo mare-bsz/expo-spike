@@ -1,4 +1,6 @@
+@import '../../styles/mixins';
+
 .status__message {
   text-align: center;
-  margin: 1rem 0;
+  margin: pxtorem(30) 0;
 }

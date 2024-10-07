@@ -1,11 +1,10 @@
 import React, { FormEvent, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { Record } from '../../types/types';
 import Button from '../../shared/Button/Button';
 import './Search.scss';
+import useFetchRecords from '../../pages/DetailPage/hooks/useFetchRecords';
 
 type SearchProps = {
   setRecords: React.Dispatch<React.SetStateAction<Record[] | undefined>>;
@@ -29,41 +28,16 @@ const Search: React.FC<SearchProps> = ({
   const { t } = useTranslation('search');
   const navigate = useNavigate();
   const location = useLocation();
-  const { keycloakInstance } = useAuth();
-
-  const fetchData = async (query: string, fst: number) => {
-    if (keycloakInstance?.token) {
-      try {
-        const response = await axios.get(
-          `/sbspike/selekt?qry=text all "${query}"&len=25&fst=${fst}&mim=json`,
-          {
-            headers: {
-              Authorization: `Bearer ${keycloakInstance.token}`,
-            },
-          }
-        );
-        const records = response.data.records;
-        const numFound = response.data.head.numFound;
-
-        if (fst >= numFound) {
-          setFirstResultPosition(0);
-        } else {
-          setFirstResultPosition(fst);
-        }
-
-        setRecords(records);
-        setNumFound(numFound);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Failed to fetch data', error);
-        setIsLoading(false);
-      }
-    }
-  };
+  const fetchRecords = useFetchRecords(
+    setRecords,
+    setFirstResultPosition,
+    setNumFound,
+    setIsLoading
+  );
 
   const triggerSearch = () => {
     setIsLoading(true);
-    fetchData(searchTerm, firstResultPosition).then(() => {
+    fetchRecords(searchTerm, firstResultPosition).then(() => {
       navigate(
         `/?qry=${encodeURIComponent(searchTerm)}&fst=${firstResultPosition}`,
         { replace: true }
@@ -90,7 +64,7 @@ const Search: React.FC<SearchProps> = ({
       if (query) {
         setSearchTerm(query);
         setFirstResultPosition(fst);
-        fetchData(query, fst);
+        fetchRecords(query, fst);
       }
     }
   }, []);

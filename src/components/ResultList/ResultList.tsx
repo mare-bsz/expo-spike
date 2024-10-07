@@ -19,8 +19,8 @@ const ResultList: React.FC<ResultListProps> = ({
 }) => {
   return (
     <ul className="result-list">
-      {records.map((record, index) => (
-        <li key={index} className="result-list__item">
+      {records.map(record => (
+        <li key={record.imdasid} className="result-list__item">
           <Link
             className="result-list__link"
             to={`/detail/${record.imdasid}`}

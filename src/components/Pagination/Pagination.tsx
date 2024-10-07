@@ -19,6 +19,10 @@ const Pagination: React.FC<PaginationProps> = ({
   const canGoBack = firstResultPosition > 0;
   const canGoForward = firstResultPosition + 25 < numFound;
 
+  if (!numFound) {
+    return null;
+  }
+
   return (
     <div className="pagination">
       <Button

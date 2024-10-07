@@ -39,15 +39,12 @@ describe('Pagination Component', () => {
     );
   });
 
-  test('both buttons are invisible if navigation is not possible', () => {
+  test('does not render when numFound is zero', () => {
     renderComponent(0, 0);
 
-    expect(screen.getByLabelText(/zurück/i)).toHaveClass(
-      'pagination__button--invisible'
-    );
-    expect(screen.getByLabelText(/weiter/i)).toHaveClass(
-      'pagination__button--invisible'
-    );
+    expect(screen.queryByLabelText(/zurück/i)).toBeNull();
+    expect(screen.queryByLabelText(/weiter/i)).toBeNull();
+    expect(screen.queryByLabelText(/Treffern/i)).toBeNull();
   });
 
   test('clicking the back button updates the firstResultPosition', () => {
