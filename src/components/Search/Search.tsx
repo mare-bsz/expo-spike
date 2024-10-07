@@ -12,6 +12,8 @@ type SearchProps = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  setNumFound: React.Dispatch<React.SetStateAction<number>>;
+  firstResultPosition: number;
 };
 
 const Search: React.FC<SearchProps> = ({
@@ -19,11 +21,48 @@ const Search: React.FC<SearchProps> = ({
   setIsLoading,
   searchTerm,
   setSearchTerm,
+  setNumFound,
+  firstResultPosition,
 }) => {
   const { t } = useTranslation('search');
   const navigate = useNavigate();
   const location = useLocation();
   const { keycloakInstance } = useAuth();
+
+  const fetchData = async (query: string) => {
+    if (keycloakInstance?.token) {
+      try {
+        const response = await axios.get(
+          `/sbspike/selekt?qry=text all "${query}"&len=25&fst=${firstResultPosition}&mim=json`,
+          {
+            headers: {
+              Authorization: `Bearer ${keycloakInstance.token}`,
+            },
+          }
+        );
+        setRecords(response.data.records);
+        setNumFound(response.data.head.numFound);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Failed to fetch data', error);
+        setIsLoading(false);
+      }
+    }
+  };
+
+  const triggerSearch = () => {
+    if (searchTerm.trim()) {
+      setIsLoading(true);
+      fetchData(searchTerm);
+      navigate(`/?qry=${encodeURIComponent(searchTerm)}`, { replace: true });
+    }
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setNumFound(0);
+    triggerSearch();
+  };
 
   // trigger search, if there is a query in the location on mount
   useEffect(() => {
@@ -38,32 +77,13 @@ const Search: React.FC<SearchProps> = ({
     }
   }, []);
 
-  const fetchData = async (query: string) => {
-    if (keycloakInstance?.token) {
-      try {
-        const response = await axios.get(
-          `/sbspike/selekt?qry=text all "${query}"&len=10&mim=json`,
-          {
-            headers: {
-              Authorization: `Bearer ${keycloakInstance.token}`,
-            },
-          }
-        );
-        setRecords(response.data.records);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Failed to fetch data', error);
-        setIsLoading(false);
-      }
+  // Handle search on pagination
+  useEffect(() => {
+    // Trigger search if searchTerm is non-empty (important during navigation)
+    if (searchTerm.trim()) {
+      triggerSearch();
     }
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-    fetchData(searchTerm);
-    navigate(`/?qry=${encodeURIComponent(searchTerm)}`, { replace: true });
-  };
+  }, [firstResultPosition]);
 
   return (
     <div className="search">

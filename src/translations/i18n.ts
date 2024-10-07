@@ -5,6 +5,7 @@ import homeDe from './home.de.json';
 import searchDe from './search.de.json';
 import detailDe from './detail.de.json';
 import imageDe from './image.de.json';
+import paginationDe from './pagination.de.json';
 
 const resources = {
   de: {
@@ -13,6 +14,7 @@ const resources = {
     home: homeDe,
     image: imageDe,
     search: searchDe,
+    pagination: paginationDe,
   },
 };
 

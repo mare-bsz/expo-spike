@@ -7,9 +7,16 @@ import Image, { ImageModifier } from '../../shared/Image/Image';
 type ResultListProps = {
   records: Record[];
   searchTerm: string;
+  firstResultPosition: number;
+  numFound: number;
 };
 
-const ResultList: React.FC<ResultListProps> = ({ records, searchTerm }) => {
+const ResultList: React.FC<ResultListProps> = ({
+  records,
+  searchTerm,
+  firstResultPosition,
+  numFound,
+}) => {
   return (
     <ul className="result-list">
       {records.map((record, index) => (
@@ -17,7 +24,13 @@ const ResultList: React.FC<ResultListProps> = ({ records, searchTerm }) => {
           <Link
             className="result-list__link"
             to={`/detail/${record.imdasid}`}
-            state={{ record, searchTerm, records }}
+            state={{
+              record,
+              searchTerm,
+              records,
+              firstResultPosition,
+              numFound,
+            }}
           >
             <>
               <div className="result-list__item-image">

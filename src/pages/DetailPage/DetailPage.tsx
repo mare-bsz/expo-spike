@@ -13,17 +13,21 @@ const DetailPage: React.FC = () => {
   const { t } = useTranslation('detail');
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const location = useLocation();
 
+  const location = useLocation();
   const { record, isLoading, error } = useFetchRecord(id ?? '');
   const searchTerm =
     (location.state as { searchTerm: string })?.searchTerm || '';
   const records = (location.state as { records: Record[] })?.records || [];
+  const firstResultPosition =
+    (location.state as { firstResultPosition: number })?.firstResultPosition ||
+    0;
+  const numFound = (location.state as { numFound: number })?.numFound || 0;
 
   const handleBackToHome = () => {
     if (searchTerm && records.length > 0) {
       navigate(`/?qry=${encodeURIComponent(searchTerm)}`, {
-        state: { records },
+        state: { records, firstResultPosition, numFound },
         replace: true,
       });
     } else {
