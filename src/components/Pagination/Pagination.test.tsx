@@ -17,42 +17,50 @@ describe('Pagination Component', () => {
   test('renders both back and forward buttons correctly when navigation is possible', () => {
     renderComponent(25, 100);
 
-    expect(screen.getByText(/zurück/i)).toBeVisible();
-    expect(screen.getByText(/weiter/i)).toBeVisible();
+    expect(screen.getByLabelText(/zurück/i)).toBeVisible();
+    expect(screen.getByLabelText(/weiter/i)).toBeVisible();
   });
 
-  test('renders only the forward button when at the beginning', () => {
+  test('only the forward button is visible at the beginning', () => {
     renderComponent(0, 100);
 
-    expect(screen.queryByText(/zurück/i)).toBeNull();
-    expect(screen.getByText(/weiter/i)).toBeVisible();
+    expect(screen.getByLabelText(/zurück/i)).toHaveClass(
+      'pagination__button--invisible'
+    );
+    expect(screen.getByLabelText(/weiter/i)).toBeVisible();
   });
 
-  test('renders only the back button when at the end', () => {
-    renderComponent(75, 100); // 75 + 25 = 100 (end)
+  test('only the back button is visible at the end', () => {
+    renderComponent(75, 100);
 
-    expect(screen.getByText(/zurück/i)).toBeVisible();
-    expect(screen.queryByText(/weiter/i)).toBeNull();
+    expect(screen.getByLabelText(/zurück/i)).toBeVisible();
+    expect(screen.getByLabelText(/weiter/i)).toHaveClass(
+      'pagination__button--invisible'
+    );
   });
 
-  test('does not render buttons if no navigation is possible', () => {
+  test('both buttons are invisible if navigation is not possible', () => {
     renderComponent(0, 0);
 
-    expect(screen.queryByText(/zurück/i)).toBeNull();
-    expect(screen.queryByText(/weiter/i)).toBeNull();
+    expect(screen.getByLabelText(/zurück/i)).toHaveClass(
+      'pagination__button--invisible'
+    );
+    expect(screen.getByLabelText(/weiter/i)).toHaveClass(
+      'pagination__button--invisible'
+    );
   });
 
   test('clicking the back button updates the firstResultPosition', () => {
     renderComponent(50, 100);
 
-    fireEvent.click(screen.getByText(/zurück/i));
+    fireEvent.click(screen.getByLabelText(/zurück/i));
     expect(setFirstResultPosition).toHaveBeenCalledWith(25); // 50 - 25 = 25
   });
 
   test('clicking the forward button updates the firstResultPosition', () => {
     renderComponent(50, 100);
 
-    fireEvent.click(screen.getByText(/weiter/i));
+    fireEvent.click(screen.getByLabelText(/weiter/i));
     expect(setFirstResultPosition).toHaveBeenCalledWith(75); // 50 + 25 = 75
   });
 });

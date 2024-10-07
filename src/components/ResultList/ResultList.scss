@@ -7,7 +7,7 @@
 }
 
 .result-list__item {
-  border-bottom: 1px solid lightgray;
+  border-bottom: pxtorem(1) solid lightgray;
   padding: pxtorem(10);
 
   .result-list__link {
@@ -30,5 +30,5 @@
 }
 
 .result-list__item-title {
-  margin-left: 10px;
+  margin-left: pxtorem(10);
 }

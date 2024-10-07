@@ -1,8 +1,9 @@
+@import 'styles/mixins';
+
 .outer-wrapper {
   display: block;
-  height: 100%;
   margin: 0 auto;
-  max-width: 720px;
+  max-width: pxtorem(720);
   min-height: 100%;
 }
 

@@ -1,5 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import './Pagination.scss';
+import Button from '../../shared/Button/Button';
+import classNames from 'classnames';
 
 type PaginationProps = {
   firstResultPosition: number;
@@ -18,28 +21,40 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <div className="pagination">
-      {canGoBack && (
-        <button
-          onClick={() => {
-            setFirstResultPosition(Math.max(0, firstResultPosition - 25));
-          }}
-        >
-          {t('back')}
-        </button>
-      )}
+      <Button
+        className={classNames(
+          'pagination__button',
+          'pagination__button--back',
+          {
+            'pagination__button--invisible': !canGoBack,
+          }
+        )}
+        onClick={() => {
+          setFirstResultPosition(Math.max(0, firstResultPosition - 25));
+        }}
+        aria-label={t('back')}
+      >
+        {'<'}
+      </Button>
       <span>{`${firstResultPosition + 1} - ${Math.min(
         firstResultPosition + 25,
         numFound
       )} ${t('of')} ${numFound} ${t('results')}`}</span>
-      {canGoForward && (
-        <button
-          onClick={() => {
-            setFirstResultPosition(firstResultPosition + 25);
-          }}
-        >
-          {t('forward')}
-        </button>
-      )}
+      <Button
+        className={classNames(
+          'pagination__button',
+          'pagination__button--forward',
+          {
+            'pagination__button--invisible': !canGoForward,
+          }
+        )}
+        onClick={() => {
+          setFirstResultPosition(firstResultPosition + 25);
+        }}
+        aria-label={t('forward')}
+      >
+        {'>'}
+      </Button>
     </div>
   );
 };

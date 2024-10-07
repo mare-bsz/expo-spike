@@ -46,17 +46,19 @@ const HomePage: React.FC = () => {
         firstResultPosition={firstResultPosition}
         setFirstResultPosition={setFirstResultPosition}
       />
+      {records && records.length > 0 && (
+        <Pagination
+          firstResultPosition={firstResultPosition}
+          setFirstResultPosition={setFirstResultPosition}
+          numFound={numFound}
+        />
+      )}
       {isLoading && <Status>{t('isLoading')}</Status>}
       {records && records.length === 0 && !isLoading && (
         <Status>{t('noResults')}</Status>
       )}
       {records && records.length > 0 && !isLoading && (
         <>
-          <Pagination
-            firstResultPosition={firstResultPosition}
-            setFirstResultPosition={setFirstResultPosition}
-            numFound={numFound}
-          />
           <ResultList
             records={records}
             searchTerm={searchTerm}
