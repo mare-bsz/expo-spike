@@ -37,13 +37,17 @@ const Pagination: React.FC<PaginationProps> = ({
           setFirstResultPosition(Math.max(0, firstResultPosition - 25));
         }}
         aria-label={t('back')}
+        aria-disabled={!canGoBack}
       >
         {'<'}
       </Button>
-      <span>{`${firstResultPosition + 1} - ${Math.min(
-        firstResultPosition + 25,
-        numFound
-      )} ${t('of')} ${numFound} ${t('results')}`}</span>
+      <span>
+        {t('position', {
+          firstPosition: firstResultPosition + 1,
+          lastPosition: Math.min(firstResultPosition + 25, numFound),
+          total: numFound,
+        })}
+      </span>
       <Button
         className={classNames(
           'pagination__button',
@@ -56,6 +60,7 @@ const Pagination: React.FC<PaginationProps> = ({
           setFirstResultPosition(firstResultPosition + 25);
         }}
         aria-label={t('forward')}
+        aria-disabled={!canGoForward}
       >
         {'>'}
       </Button>

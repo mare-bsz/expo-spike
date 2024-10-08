@@ -35,35 +35,34 @@ const Search: React.FC<SearchProps> = ({
     setIsLoading
   );
 
-  const triggerSearch = () => {
+  const triggerSearch = (qry: string, fst: number) => {
     setIsLoading(true);
-    fetchRecords(searchTerm, firstResultPosition).then(() => {
-      navigate(
-        `/?qry=${encodeURIComponent(searchTerm)}&fst=${firstResultPosition}`,
-        { replace: true }
-      );
+    fetchRecords(qry, fst).then(() => {
+      navigate(`/?qry=${encodeURIComponent(qry)}&fst=${fst}`, {
+        replace: true,
+      });
     });
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     setNumFound(0); // Reset numFound when triggering a new search
     setFirstResultPosition(0); // Reset firstResultPosition when triggering a new search
-    triggerSearch(); // Initiate the search
+    triggerSearch(searchTerm, 0); // Initiate the search
   };
 
   // trigger search, if there is a query in the location on mount
   useEffect(() => {
-    const stateRecords = (location.state as { records: Record[] })?.records;
+    const { records } = location.state ?? {};
 
-    if (!stateRecords) {
+    if (!records) {
       const urlParams = new URLSearchParams(location.search);
       const query = urlParams.get('qry');
       const fst = parseInt(urlParams.get('fst') || '0', 10);
 
       if (query) {
         setSearchTerm(query);
-        setFirstResultPosition(fst);
         fetchRecords(query, fst);
       }
     }
@@ -73,7 +72,7 @@ const Search: React.FC<SearchProps> = ({
   useEffect(() => {
     // Trigger search if searchTerm is non-empty (important during navigation)
     if (searchTerm.trim()) {
-      triggerSearch();
+      triggerSearch(searchTerm, firstResultPosition);
     }
   }, [firstResultPosition]);
 

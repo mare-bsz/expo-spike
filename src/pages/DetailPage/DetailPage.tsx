@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Record } from '../../types/types';
 import Button from '../../shared/Button/Button';
 import Status from '../../shared/Status/Status';
 import useFetchRecord from './hooks/useFetchRecord';
@@ -16,13 +15,12 @@ const DetailPage: React.FC = () => {
 
   const location = useLocation();
   const { record, isLoading, error } = useFetchRecord(id ?? '');
-  const searchTerm =
-    (location.state as { searchTerm: string })?.searchTerm || '';
-  const records = (location.state as { records: Record[] })?.records || [];
-  const firstResultPosition =
-    (location.state as { firstResultPosition: number })?.firstResultPosition ||
-    0;
-  const numFound = (location.state as { numFound: number })?.numFound || 0;
+  const {
+    searchTerm = '',
+    records = [],
+    firstResultPosition = 0,
+    numFound = 0,
+  } = location.state ?? {};
 
   const handleBackToHome = () => {
     if (searchTerm && records.length > 0) {

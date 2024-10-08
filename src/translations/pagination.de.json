@@ -1,6 +1,5 @@
 {
   "back": "Zurück",
   "forward": "Weiter",
-  "of": "von",
-  "results": "Treffern"
+  "position": "{{firstPosition}} - {{lastPosition}} von {{total}} Treffern"
 }
